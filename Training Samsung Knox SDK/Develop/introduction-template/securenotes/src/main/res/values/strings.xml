@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Secure Memo</string>
+
+    <!-- UI elements -->
+    <string name="app_description">Memo</string>
+    <string name="app_hint">Write something...</string>
+    <string name="more_info">More Info</string>
+
+    <!-- Contextual menu items -->
+    <string name="identify">Load Note</string>
+
+    <string name="enterprise_device_admin">Secure Memo</string>
+    <string name="enterprise_device_admin_description">ecure Memo Demo</string>
+    <string name="usefingerprint">Use Fingerprint</string>
+    <string name="title_activity_attestation">AttestationActivity</string>
+    <string name="save">Save Note</string>
+</resources>

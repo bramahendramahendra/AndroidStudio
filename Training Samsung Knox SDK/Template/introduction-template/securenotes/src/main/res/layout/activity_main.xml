@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/layout_vertical_margin"
+    android:layout_marginEnd="@dimen/layout_horizontal_margin"
+    android:layout_marginStart="@dimen/layout_horizontal_margin"
+    android:layout_marginTop="@dimen/layout_vertical_margin">
+
+    <EditText
+        android:id="@+id/edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorLightYellow"
+        android:gravity="top"
+        android:hint="@string/app_hint"
+        android:inputType="text|textMultiLine"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>

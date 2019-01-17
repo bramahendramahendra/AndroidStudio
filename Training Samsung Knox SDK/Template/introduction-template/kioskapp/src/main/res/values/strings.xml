@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KioskApp</string>
+
+    <string name="enterprise_device_admin">Kiosk Application</string>
+    <string name="enterprise_device_admin_description">Kiosk Application demo</string>
+
+</resources>

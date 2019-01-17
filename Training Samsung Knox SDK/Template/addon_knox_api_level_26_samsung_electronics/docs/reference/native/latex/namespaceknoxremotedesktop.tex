@@ -1,0 +1,342 @@
+\hypertarget{namespaceknoxremotedesktop}{\section{knoxremotedesktop \-Namespace \-Reference}
+\label{namespaceknoxremotedesktop}\index{knoxremotedesktop@{knoxremotedesktop}}
+}
+
+
+\-Copyright (\-C) 2012 \-Samsung \-Electronics \-Co., \-Ltd.  
+
+
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structknoxremotedesktop_1_1PixelFormatDetail}{\-Pixel\-Format\-Detail}
+\begin{DoxyCompactList}\small\item\em \-This structure provides the pixel format information in terms of actual component offsets. \end{DoxyCompactList}\item 
+class \hyperlink{classknoxremotedesktop_1_1DirtyRegion}{\-Dirty\-Region}
+\begin{DoxyCompactList}\small\item\em \-This structure provides the \-Dirty \-Region \-Information. \end{DoxyCompactList}\item 
+class \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{\-I\-Remote\-Desktop\-Listener}
+\begin{DoxyCompactList}\small\item\em \-This class provides the interface to get notified when the screen changes. \end{DoxyCompactList}\item 
+class \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{\-I\-Remote\-Desktop}
+\begin{DoxyCompactList}\small\item\em \-Remote \-Desktop \-Module provides means by which the admin capture the device screen content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespaceknoxremotedesktop_a01c73ba2fbebc2395aae6198eb87a416}{\-F\-D\-Type} \{ {\bfseries \-F\-D\-\_\-\-I\-N\-V\-A\-L\-I\-D}, 
+{\bfseries \-F\-D\-\_\-\-D\-E\-V\-\_\-\-F\-B0}, 
+{\bfseries \-F\-D\-\_\-\-S\-H\-A\-R\-E\-D\-\_\-\-M\-E\-M}
+ \}
+\begin{DoxyCompactList}\small\item\em \-This enum provides the different file descriptor types. \end{DoxyCompactList}\item 
+enum \{ {\bfseries \-P\-F\-\_\-\-U\-N\-K\-N\-O\-W\-N}, 
+{\bfseries \-P\-F\-\_\-\-R\-G\-B\-\_\-565}, 
+{\bfseries \-P\-F\-\_\-\-B\-G\-R\-A\-\_\-8888}, 
+{\bfseries \-P\-F\-\_\-\-R\-G\-B\-A\-\_\-8888}
+ \}
+\begin{DoxyCompactList}\small\item\em \-This enum provides the different pixel formats for the device screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Copyright (\-C) 2012 \-Samsung \-Electronics \-Co., \-Ltd. \-All rights reserved.
+
+\-Mobile \-Communication \-Division,
+
+\-Digital \-Media \& \-Communications \-Business, \-Samsung \-Electronics \-Co., \-Ltd.
+
+\-This software and its documentation are confidential and proprietary
+
+information of \-Samsung \-Electronics \-Co., \-Ltd. \-No part of the software and
+
+documents may be copied, reproduced, transmitted, translated, or reduced to
+
+any electronic medium or machine-\/readable form without the prior written
+
+consent of \-Samsung \-Electronics.
+
+\-Samsung \-Electronics makes no representations with respect to the contents,
+
+and assumes no responsibility for any errors that might appear in the
+
+software and documents. \-This publication and the contents hereof are subject
+
+to change without notice.
+
+\-Remote \-Desktop \-Module provides means by which the admin capture the device screen content.
+
+\-It provides the following features for \-E\-D\-M client\par
+
+
+
+\begin{DoxyItemize}
+\item \-Access to screen content through shared memory from \-Surface \-Flinger. \par
+
+\end{DoxyItemize}
+
+(\-Note\-: \-Surface \-Flinger is android's composition engine that composes the
+
+\-U\-I content and updates to the display\par
+
+
+
+\begin{DoxyItemize}
+\item or \-Access to screen content through \-Read-\/only access to the framebuffer device.\par
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item \-Screen \-Changed \-Notifications\par
+
+\end{DoxyItemize}
+
+( \-This prevents the \-E\-D\-M client from having to poll the screen content continuously
+
+to check for changes. \-The notifications shall be received for both approaches fb0
+
+and surface flinger.)\par
+
+
+
+\begin{DoxyItemize}
+\item \-Dirty \-Region feedback after capture\par
+
+\end{DoxyItemize}
+
+\-The decision to use framebuffer device (fb0) or \-Surface \-Flinger mechanism is made based on the
+
+following aspects\par
+
+
+
+\begin{DoxyItemize}
+\item \-Availability of the approach \par
+
+\end{DoxyItemize}
+
+(\-Eg\-: -\/ \-Only \-Surface \-Flinger approach works in some devices as the frame buffer
+
+device is not accessible/available),\par
+
+
+
+\begin{DoxyItemize}
+\item \-Frame rate yielded by individual approach and \par
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item \-Accuracy of the screen content \par
+
+\end{DoxyItemize}
+
+(\-Eg\-: -\/ \-F\-B0 misses some overlay content. \-Lets say, \-Wallpaper is present in one
+
+layer, \-Status \-Bar present in one layer, remaining \-U\-Is present in another layer). \par
+
+
+\-Note\-: \-This decision is done for every device at build time.\par
+
+
+\-The \-E\-D\-M client can register a listener to receive notifications when the screen changes.
+
+\-On occurrence of screen change, the \-Remote \-Desktop module sends a screen\-Changed callback and
+
+waits for the capture request from the client.
+
+(\-Note\-: \-Subsequent screen changes are detected, but they are not notified to the client until
+
+the capture request for the outstanding callback is received.)\par
+
+
+\par
+
+
+\-In case of \-Remote \-Desktop session\par
+
+
+~~1) \-If \-Remote \-Desktop \-Session is started at owner space\par
+
+
+~~~~~~a) \-It can capture owner space screens\par
+
+
+~~~~~~b) \-It can capture \-Android guest user's screens\par
+
+
+~~2) \-If \-Remote \-Desktop \-Session is started at \-Android guest user\par
+
+
+~~~~~~a) \-It can't capture owner space screens\par
+
+
+~~~~~~b) \-It can capture its own user space screens\par
+
+
+\-Events injected by \-Remote \-Injection are not injected into user space where \-Remote \-Desktop
+
+is disabled.
+
+\par
+
+
+\begin{DoxyParagraph}{\-Policy\-Group\-I\-D\-: }
+\-Remote \-Control
+\end{DoxyParagraph}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxyParagraph}{\-Permission\-: }
+\-This policy requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission
+
+which has a protection level of signature. 
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{namespaceknoxremotedesktop_abb203e9b63692eb529da34e7e68158ec}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{namespaceknoxremotedesktop_abb203e9b63692eb529da34e7e68158ec}
+
+
+\-This enum provides the different pixel formats for the device screen. 
+
+\-Pixel formats depend on the support from underneath capture mechanism
+
+(framebuffer device (fb0) or \-Surface \-Flinger mechanism)\par
+\par
+
+
+1. \-In \-Surface flinger based capture, \-R\-G\-B\-A\-\_\-8888 will be the output format.\par
+\par
+
+
+2. \-In \-F\-B0 based capture, formats \-B\-G\-R\-A\-\_\-8888 and \-R\-B\-G\-\_\-565 are so far supported
+
+because these were the known formats in so far tested devices.
+
+\-If the \-F\-B0 device provides content in any other format than these formats in
+
+future devices, then it would be marked as \-P\-F\-\_\-\-U\-N\-K\-N\-O\-W\-N. \-But still the \-E\-D\-M
+
+client can use ioctl directly like below to fetch the colour offset
+
+information\-:\par
+
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	    remoteDesktop->getScreenInfo(&width, &height, &bytesPerPixel, &pixelFormat);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		if (mFDType == FD\_DEV\_FB0 \&\& pixelFormat == PF\_UNKNOWN) \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			// Special Case\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			struct fb\_var\_screeninfo var;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			if(ioctl(mFD, FBIOGET\_VSCREENINFO, &var) < 0) \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}				LOGE("Failed FBIOGET\_VSCREENINFO");\end{DoxyPre}
+
+
+
+\begin{DoxyPre}				return;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			\}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			//The following information shall be used to render the buffer\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int redoffset = var.red.offset;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int redlength = var.red.length;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int greenoffset = var.green.offset;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int greenlength = var.green.length;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int blueoffset = var.blue.offset;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int bluelength = var.blue.length;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int alphaoffset = var.transp.offset;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			int alphalength = var. transp.length;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		   // Code to read the buffer in this special case using above color offset information\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		\} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			// Code to read the buffer in normal case\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		\}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}      \end{DoxyPre}
+
+
+\par
+
+
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1 
+\end{DoxySince}
+\hypertarget{namespaceknoxremotedesktop_a01c73ba2fbebc2395aae6198eb87a416}{\index{knoxremotedesktop@{knoxremotedesktop}!\-F\-D\-Type@{\-F\-D\-Type}}
+\index{\-F\-D\-Type@{\-F\-D\-Type}!knoxremotedesktop@{knoxremotedesktop}}
+\subsubsection[{\-F\-D\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf knoxremotedesktop\-::\-F\-D\-Type}}}\label{namespaceknoxremotedesktop_a01c73ba2fbebc2395aae6198eb87a416}
+
+
+\-This enum provides the different file descriptor types. 
+
+\-File \-Descriptor types depend on the underneath capture mechanism.
+
+(framebuffer device (fb0) or \-Surface \-Flinger mechanism)
+
+\par
+
+
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1 
+\end{DoxySince}

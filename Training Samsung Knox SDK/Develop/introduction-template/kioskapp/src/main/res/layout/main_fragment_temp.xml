@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!--<com.google.android.exoplayer2.ui.SimpleExoPlayerView--><!--xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/player_view"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"/>-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/metal2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="3">
+            <View
+                android:layout_width="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/divider" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/exit_kiosk"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit Kios"/>
+    </LinearLayout>
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.25"
+        android:background="@drawable/screen"
+        android:orientation="vertical"
+        app:use_artwork="true"
+        app:resize_mode="fill"
+        app:player_layout_id ="@layout/player_fragment"/>
+
+</LinearLayout>

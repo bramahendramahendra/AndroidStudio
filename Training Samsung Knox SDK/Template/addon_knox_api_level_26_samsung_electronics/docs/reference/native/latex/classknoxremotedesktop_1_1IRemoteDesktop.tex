@@ -1,0 +1,1255 @@
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop}{\section{knoxremotedesktop\-:\-:\-I\-Remote\-Desktop \-Class \-Reference}
+\label{classknoxremotedesktop_1_1IRemoteDesktop}\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+}
+
+
+\-Remote \-Desktop \-Module provides means by which the admin capture the device screen content.  
+
+
+
+
+{\ttfamily \#include $<$\-Remote\-Desktop.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init} ()=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to initialize remote desktop session. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info} (int $\ast$width, int $\ast$height, int $\ast$bytes\-Per\-Pixel, int $\ast$pixel\-Format)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to get \-Frame \-Buffer's \-Resolution/\-Pixel\-Format information. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info} (int $\ast$fd, \hyperlink{namespaceknoxremotedesktop_a01c73ba2fbebc2395aae6198eb87a416}{\-F\-D\-Type} $\ast$fd\-Type)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to get \-Frame \-Buffer \-Information. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener} (\hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{\-I\-Remote\-Desktop\-Listener} $\ast$listener)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to register \-Screen \-Event listener. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen} (\hyperlink{classknoxremotedesktop_1_1DirtyRegion}{\-Dirty\-Region} \&region)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to capture the screen. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a700dee2f575609a933a53d7ab10480e4}{get\-Screen\-Pixel\-Format\-Info} (\hyperlink{structknoxremotedesktop_1_1PixelFormatDetail}{\-Pixel\-Format\-Detail} \&format\-Detail)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to get screen pixel format information. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_aeb13652779ac87ce9de9a8155f6dc60b}{set\-Screen\-Info} (int pref\-W, int pref\-H, int pref\-Format)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to set the framebuffer's width, height and format preferred by the admin. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_aafef444b0d8af3044e790932648cec3b}{get\-Default\-Screen\-Info} (int $\ast$hwwidth, int $\ast$hwheight, int $\ast$hwbytes\-Per\-Pixel, int $\ast$hwpixel\-Format)=0
+\begin{DoxyCompactList}\small\item\em \-A\-P\-I to get the default screen information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{\-I\-Remote\-Desktop} $\ast$ \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance} ()
+\begin{DoxyCompactList}\small\item\em \-Returns an instance of a \-Remote\-Desktop client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Remote \-Desktop \-Module provides means by which the admin capture the device screen content. 
+
+\-It provides the following features for \-E\-D\-M client\par
+
+
+
+\begin{DoxyItemize}
+\item \-Access to screen content through shared memory from \-Surface \-Flinger. \par
+
+\end{DoxyItemize}
+
+(\-Note\-: \-Surface \-Flinger is android's composition engine that composes the
+
+\-U\-I content and updates to the display\par
+
+
+
+\begin{DoxyItemize}
+\item or \-Access to screen content through \-Read-\/only access to the framebuffer device.\par
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item \-Screen \-Changed \-Notifications\par
+
+\end{DoxyItemize}
+
+( \-This prevents the \-E\-D\-M client from having to poll the screen content continuously
+
+to check for changes. \-The notifications shall be received for both approaches fb0
+
+and surface flinger.)\par
+
+
+
+\begin{DoxyItemize}
+\item \-Dirty \-Region feedback after capture\par
+
+\end{DoxyItemize}
+
+\-The decision to use framebuffer device (fb0) or \-Surface \-Flinger mechanism is made based on the
+
+following aspects\par
+
+
+
+\begin{DoxyItemize}
+\item \-Availability of the approach \par
+
+\end{DoxyItemize}
+
+(\-Eg\-: -\/ \-Only \-Surface \-Flinger approach works in some devices as the frame buffer
+
+device is not accessible/available),\par
+
+
+
+\begin{DoxyItemize}
+\item \-Frame rate yielded by individual approach and \par
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item \-Accuracy of the screen content \par
+
+\end{DoxyItemize}
+
+(\-Eg\-: -\/ \-F\-B0 misses some overlay content. \-Lets say, \-Wallpaper is present in one
+
+layer, \-Status \-Bar present in one layer, remaining \-U\-Is present in another layer). \par
+
+
+\-Note\-: \-This decision is done for every device at build time.\par
+
+
+\-The \-E\-D\-M client can register a listener to receive notifications when the screen changes.
+
+\-On occurrence of screen change, the \-Remote \-Desktop module sends a screen\-Changed callback and
+
+waits for the capture request from the client.
+
+(\-Note\-: \-Subsequent screen changes are detected, but they are not notified to the client until
+
+the capture request for the outstanding callback is received.)\par
+
+
+\par
+
+
+\-In case of \-Remote \-Desktop session\par
+
+
+~~1) \-If \-Remote \-Desktop \-Session is started at owner space\par
+
+
+~~~~~~a) \-It can capture owner space screens\par
+
+
+~~~~~~b) \-It can capture \-Android guest user's screens\par
+
+
+~~2) \-If \-Remote \-Desktop \-Session is started at \-Android guest user\par
+
+
+~~~~~~a) \-It can't capture owner space screens\par
+
+
+~~~~~~b) \-It can capture its own user space screens\par
+
+
+\-Events injected by \-Remote \-Injection are not injected into user space where \-Remote \-Desktop
+
+is disabled.
+
+\par
+
+
+\begin{DoxyParagraph}{\-Policy\-Group\-I\-D\-: }
+\-Remote \-Control
+\end{DoxyParagraph}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxyParagraph}{\-Permission\-: }
+\-This policy requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission
+
+which has a protection level of signature. 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!capture\-Screen@{capture\-Screen}}
+\index{capture\-Screen@{capture\-Screen}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{capture\-Screen}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::capture\-Screen} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Dirty\-Region} \&}]{region}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}
+
+
+\-A\-P\-I to capture the screen. 
+
+\-Admin can use this \-A\-P\-I to capture the screen. \-Remote \-Desktop
+
+module returns the changed region or dirty region in response
+
+to this request. (\-This \-A\-P\-I updates the screen contents to shared memory
+
+if fd\-Type == \-F\-D\-\_\-\-S\-H\-A\-R\-E\-D\-\_\-\-M\-E\-M.)\par
+
+
+\mbox{[}\-N\-O\-T\-E\mbox{]} \-It is recommended to follow the following sequence\-:\par
+
+
+\-Step 1 \-: \-Call \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{\-I\-Remote\-Desktop\-::get\-Instance()} to get an instance of \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{\-I\-Remote\-Desktop}\par
+
+
+\-Step 2 \-: \-Call \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_aeb13652779ac87ce9de9a8155f6dc60b}{\-I\-Remote\-Desktop\-::set\-Screen\-Info} (pref\-W, pref\-H, pref\-Format) to set the desired screen width,height and pixel format\par
+
+
+\-Step 3 \-: \-Call \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{\-I\-Remote\-Desktop\-::init()}\par
+
+
+\-Step 4 \-: \-Call \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{\-I\-Remote\-Desktop\-::get\-Frame\-Buf\-Info()} to get file descriptor and type of it\par
+
+
+\-Step 5 \-: \-Call mmap() to map file descriptor to memory\par
+
+
+\-Step 6 \-: \-Set screen update listener\par
+
+
+\-Step 7 \-: \-Call \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{\-I\-Remote\-Desktop\-::capture\-Screen()} to get dirty regions after screen\-Changed() callback is called\par
+
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} class RemoteDesktopListener : public \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{IRemoteDesktopListener} \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre} 	 RemoteDesktopListener() \{\}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} 	 virtual void screenChanged() \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre} 		 LOGI("RemoteDesktopListener :: screenChanged()");\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		   	 // Capture Screen Request code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			 \hyperlink{classknoxremotedesktop_1_1DirtyRegion}{DirtyRegion} dirtyRegion;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			 bool err = remoteDesktop->captureScreen(dirtyRegion);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			 if(err == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}				 // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			\} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}				 // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}			\}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	   \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 ....\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 int w = 360, h = 640, format = PF\_RGBA\_8888;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 int	  mFD;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 FDType   mFDType;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 bool ret;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 ret = remoteDesktop->setScreenInfo(w,h,format);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 if(ret == false)\{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 if(ret == false)\{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 ret = remoteDesktop->getFrameBufInfo(&mFD, &mFDType);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 if(ret == false)\{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 if (mFDType == FD\_DEV\_FB0) \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 struct fb\_var\_screeninfo vinfo;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 if(ioctl(mFD, FBIOGET\_VSCREENINFO, &vinfo) < 0) return false;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 int offset = vinfo.xoffset * mBytesPerPixel + vinfo.xres * vinfo.yoffset * mBytesPerPixel;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 mFrame = (unsigned short *) mmap(0, mFrameBufferSize, PROT\_READ, MAP\_PRIVATE, mFD, offset);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \} else if (mFDType == FD\_SHARED\_MEM) \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 mFrame = (unsigned short *) mmap(0, mFrameBufferSize, PROT\_READ, MAP\_SHARED, mFD, 0);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 LOGE("mapFrameBuffer Failed");\end{DoxyPre}
+
+
+
+\begin{DoxyPre}		 return false;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{IRemoteDesktopListener} *remoteDesktoplistener = new RemoteDesktopListener();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	 remoteDesktop->setListener(remoteDesktoplistener);\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em region} & \-Dirty \-Region \-Information\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if captured successfully, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info(int$\ast$, int$\ast$, int$\ast$, int$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_aafef444b0d8af3044e790932648cec3b}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!get\-Default\-Screen\-Info@{get\-Default\-Screen\-Info}}
+\index{get\-Default\-Screen\-Info@{get\-Default\-Screen\-Info}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{get\-Default\-Screen\-Info}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::get\-Default\-Screen\-Info} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{hwwidth, }
+\item[{int $\ast$}]{hwheight, }
+\item[{int $\ast$}]{hwbytes\-Per\-Pixel, }
+\item[{int $\ast$}]{hwpixel\-Format}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_aafef444b0d8af3044e790932648cec3b}
+
+
+\-A\-P\-I to get the default screen information. 
+
+\-Admin can use this \-A\-P\-I to get the default hardware screen dimensions, pixel formats and
+
+pixel byte size. \-This new \-A\-P\-I is introduced as get\-Screen\-Info need not return the default screen
+
+information as it returns the selected framebuffer information based on the preferences
+
+set by the admin
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     int	hwwidth, hwheight, hwpixelFormat, hwbytesPerPixel;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     remotedesktop->getDefaultScreenInfo(&hwwidth, &hwheight, &hwbytesPerPixel, &hwpixelFormat);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em hwwidth} & \-Hardware \-Screen \-Width\\
+\hline
+{\em hw\-Height} & \-Hardware \-Screen \-Height\\
+\hline
+{\em hwbytes\-Per\-Pixel} & \-Hardware \-Pixel \-Size in \-Bytes\\
+\hline
+{\em hwpixel\-Format} & \-Hardware \-Pixel \-Format.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+nothing
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!get\-Frame\-Buf\-Info@{get\-Frame\-Buf\-Info}}
+\index{get\-Frame\-Buf\-Info@{get\-Frame\-Buf\-Info}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{get\-Frame\-Buf\-Info}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::get\-Frame\-Buf\-Info} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{fd, }
+\item[{{\bf \-F\-D\-Type} $\ast$}]{fd\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}
+
+
+\-A\-P\-I to get \-Frame \-Buffer \-Information. 
+
+\-Admin can use this \-A\-P\-I to get \-File \-Descriptor to
+
+framebuffer device or \-Shared memory.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     int	     mFD;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     FDType 	 mFDType;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     bool err = remoteDesktop->getFrameBufInfo(&mFD, &mFDType);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     if(err == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}         // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}         // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em fd} & \-File \-Descriptor\\
+\hline
+{\em fd\-Type} & \-File \-Descriptor \-Type (\-Shared \-Memory or \-Frame \-Buffer)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if frame buffer information successfully retrieved, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info(int$\ast$, int$\ast$, int$\ast$, int$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-I\-Remote\-Desktop}$\ast$ {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::get\-Instance} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}
+
+
+\-Returns an instance of a \-Remote\-Desktop client. 
+
+\-Admin can use this \-A\-P\-I to initialize the remote desktop session
+
+establishing the connection to the underneath capture mechanism.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{ // failure due to either permission\end{DoxyPre}
+
+
+
+\begin{DoxyPre}                      // denied or other initialization failures\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyReturn}{\-Returns}
+\-A remote desktop instance if successful, else {\ttfamily null}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1 
+\end{DoxySince}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!get\-Screen\-Info@{get\-Screen\-Info}}
+\index{get\-Screen\-Info@{get\-Screen\-Info}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{get\-Screen\-Info}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::get\-Screen\-Info} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{width, }
+\item[{int $\ast$}]{height, }
+\item[{int $\ast$}]{bytes\-Per\-Pixel, }
+\item[{int $\ast$}]{pixel\-Format}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}
+
+
+\-A\-P\-I to get \-Frame \-Buffer's \-Resolution/\-Pixel\-Format information. 
+
+\-Admin can use this \-A\-P\-I to get the framebuffer dimensions, pixel formats and
+
+pixel byte size.
+
+\-Note\-: \-Pixel\-Format returned by this \-A\-P\-I is not reliable. \-It will not give accurate information
+
+on the exact position details of each pixel. \-Also for \-F\-B0 \-F\-D\-Type, the pixel format may also be returned
+
+as \-P\-F\-\_\-\-U\-N\-K\-N\-O\-W\-N. \-It is recommended that client always rely on the \-A\-P\-I \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a700dee2f575609a933a53d7ab10480e4}{get\-Screen\-Pixel\-Format\-Info()}.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     int	width, height, pixelFormat, bytesPerPixel;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     remoteDesktop->getScreenInfo(&width, &height, &bytesPerPixel, &pixelFormat);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em width} & \-Screen \-Width\\
+\hline
+{\em height} & \-Screen \-Height\\
+\hline
+{\em bytes\-Per\-Pixel} & \-Pixel \-Size in \-Bytes\\
+\hline
+{\em pixel\-Format} & \-Pixel \-Format.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if screen information successfully retrieved, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_a700dee2f575609a933a53d7ab10480e4}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!get\-Screen\-Pixel\-Format\-Info@{get\-Screen\-Pixel\-Format\-Info}}
+\index{get\-Screen\-Pixel\-Format\-Info@{get\-Screen\-Pixel\-Format\-Info}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{get\-Screen\-Pixel\-Format\-Info}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::get\-Screen\-Pixel\-Format\-Info} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Pixel\-Format\-Detail} \&}]{format\-Detail}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_a700dee2f575609a933a53d7ab10480e4}
+
+
+\-A\-P\-I to get screen pixel format information. 
+
+\-Admin can use this \-A\-P\-I to get the pixel format detailed information.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \hyperlink{structknoxremotedesktop_1_1PixelFormatDetail}{PixelFormatDetail} formatDetail;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     remoteDesktop->getScreenPixelFormatInfo(formatDetail);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em format\-Detail} & \-Pixel \-Format \-Detail\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+nothing
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!init@{init}}
+\index{init@{init}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::init} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}
+
+
+\-A\-P\-I to initialize remote desktop session. 
+
+\-Admin can use this \-A\-P\-I to initialize the remote desktop session
+
+establishing the connection to the underneath capture mechanism.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{ // failure due to either permission\end{DoxyPre}
+
+
+
+\begin{DoxyPre}                      // denied or other initialization failures\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if successfully initialised, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info(int$\ast$, int$\ast$, int$\ast$, int$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!set\-Listener@{set\-Listener}}
+\index{set\-Listener@{set\-Listener}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{set\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::set\-Listener} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-I\-Remote\-Desktop\-Listener} $\ast$}]{listener}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}
+
+
+\-A\-P\-I to register \-Screen \-Event listener. 
+
+\-Admin can use this \-A\-P\-I to get \-Screen \-Changed \-Event \-Callbacks
+
+from remote desktop module.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  class RemoteDesktopListener : public \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{IRemoteDesktopListener} \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}      RemoteDesktopListener() \{\}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}      virtual void screenChanged() \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}	        LOGI("RemoteDesktopListener :: screenChanged()");\end{DoxyPre}
+
+
+
+\begin{DoxyPre}          // Capture Screen Request code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}      \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  ....\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener}{IRemoteDesktopListener} *remoteDesktoplistener = new RemoteDesktopListener();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     bool err = remoteDesktop->setListener(remoteDesktoplistener);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     if(err == false)  \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}         // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}         // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em listener} & \-Screen \-Change \-Event \-Listener\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if listener is successfully set, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a7bed40d98c61713a69cf1dad8b37beae}{init()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info(int$\ast$, int$\ast$, int$\ast$, int$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktop_aeb13652779ac87ce9de9a8155f6dc60b}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}!set\-Screen\-Info@{set\-Screen\-Info}}
+\index{set\-Screen\-Info@{set\-Screen\-Info}!knoxremotedesktop::IRemoteDesktop@{knoxremotedesktop\-::\-I\-Remote\-Desktop}}
+\subsubsection[{set\-Screen\-Info}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-::set\-Screen\-Info} (
+\begin{DoxyParamCaption}
+\item[{int}]{pref\-W, }
+\item[{int}]{pref\-H, }
+\item[{int}]{pref\-Format}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktop_aeb13652779ac87ce9de9a8155f6dc60b}
+
+
+\-A\-P\-I to set the framebuffer's width, height and format preferred by the admin. 
+
+\-Admin can use this \-A\-P\-I to set the preference for the remote screen dimensions considering the
+
+different factors like network bandwidth usage and performance. \-This may or may not be honoured based
+
+on the platform support. \-Mostly in case of \-F\-B0, this will not be honoured.
+
+\-Example client call\-:
+
+
+\begin{DoxyPre}\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  int w = 360, h = 640, format = PF\_RGB\_565;\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \hyperlink{classknoxremotedesktop_1_1IRemoteDesktop}{IRemoteDesktop} *remoteDesktop = RemoteDesktop::getInstance();\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  bool ret = remoteDesktop->setScreenInfo(w,h,format);\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  if(ret == false)  \{ // failure due to either permission\end{DoxyPre}
+
+
+
+\begin{DoxyPre}                      // denied or other initialization failures\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // failure code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \} else \{\end{DoxyPre}
+
+
+
+\begin{DoxyPre}     // success code\end{DoxyPre}
+
+
+
+\begin{DoxyPre}  \}\end{DoxyPre}
+
+
+
+\begin{DoxyPre} \end{DoxyPre}
+
+
+\begin{DoxyParagraph}{\-Permission\-: }
+\-The use of this \-A\-P\-I requires the caller to have the
+\end{DoxyParagraph}
+\char`\"{}com.\-samsung.\-android.\-knox.\-permission.\-K\-N\-O\-X\-\_\-\-R\-E\-M\-O\-T\-E\-\_\-\-C\-O\-N\-T\-R\-O\-L\char`\"{} permission which has a protection level
+
+of signature.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pref\-W} & \-Preferred \-Screen \-Width\\
+\hline
+{\em pref\-H} & \-Preferred \-Screen \-Height\\
+\hline
+{\em pref\-Format} & \-Preferred \-Pixel \-Format\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+{\ttfamily true} if success, else {\ttfamily false}.
+\end{DoxyReturn}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1
+\end{DoxySince}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a86eefbec946d605470af069999763f74}{get\-Instance()}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_ae9a1e6863bfc2affad4462bc0a29914a}{get\-Screen\-Info(int$\ast$, int$\ast$, int$\ast$, int$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a57d5432823adfd7cfb72441469ccc98e}{get\-Frame\-Buf\-Info(int $\ast$, F\-D\-Type $\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{capture\-Screen(\-Dirty\-Region\&)} 
+\end{DoxySeeAlso}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+remotecontrol/\-Remote\-Desktop.\-h\end{DoxyCompactItemize}

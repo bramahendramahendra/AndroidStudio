@@ -1,0 +1,60 @@
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktopListener}{\section{knoxremotedesktop\-:\-:\-I\-Remote\-Desktop\-Listener \-Class \-Reference}
+\label{classknoxremotedesktop_1_1IRemoteDesktopListener}\index{knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener@{knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener}}
+}
+
+
+\-This class provides the interface to get notified when the screen changes.  
+
+
+
+
+{\ttfamily \#include $<$\-Remote\-Desktop.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener_a737ab352cec0a7dc249da5519a8e14b0}{screen\-Changed} ()=0
+\begin{DoxyCompactList}\small\item\em \-Invoked when screen content changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-This class provides the interface to get notified when the screen changes. 
+
+\-Admin should implement the \hyperlink{classknoxremotedesktop_1_1IRemoteDesktopListener_a737ab352cec0a7dc249da5519a8e14b0}{screen\-Changed()} method to get notifications
+
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1 
+\end{DoxySince}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classknoxremotedesktop_1_1IRemoteDesktopListener_a737ab352cec0a7dc249da5519a8e14b0}{\index{knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener@{knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener}!screen\-Changed@{screen\-Changed}}
+\index{screen\-Changed@{screen\-Changed}!knoxremotedesktop::IRemoteDesktopListener@{knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener}}
+\subsubsection[{screen\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf knoxremotedesktop\-::\-I\-Remote\-Desktop\-Listener\-::screen\-Changed} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classknoxremotedesktop_1_1IRemoteDesktopListener_a737ab352cec0a7dc249da5519a8e14b0}
+
+
+\-Invoked when screen content changes. 
+
+\-Admin can use this callback to capture the screen when this callback is invoked.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_af22e75002f52d837cfc9d9589647ddb9}{\-I\-Remote\-Desktop\-::set\-Listener(\-I\-Remote\-Desktop\-Listener$\ast$)}
+
+\hyperlink{classknoxremotedesktop_1_1IRemoteDesktop_a0ab5a0cf162a91c5e69abeed90f8ba09}{\-I\-Remote\-Desktop\-::capture\-Screen(\-Dirty\-Region\&)}
+\end{DoxySeeAlso}
+\begin{DoxySince}{\-Since}
+\-A\-P\-I level 3
+
+\-M\-D\-M 2.\-1 
+\end{DoxySince}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+remotecontrol/\-Remote\-Desktop.\-h\end{DoxyCompactItemize}

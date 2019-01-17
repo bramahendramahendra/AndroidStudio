@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/introduction-template.iml" filepath="$PROJECT_DIR$/introduction-template.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kioskapp/kioskapp.iml" filepath="$PROJECT_DIR$/kioskapp/kioskapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/securenotes/securenotes.iml" filepath="$PROJECT_DIR$/securenotes/securenotes.iml" />
+    </modules>
+  </component>
+</project>
